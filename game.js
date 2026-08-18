@@ -1,8 +1,13 @@
-// Space Runner Game - Main Game Logic
+// Space Runner Game - Mobile Enhanced with Shooting Mechanic
 class SpaceRunner {
     constructor() {
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
+        
+        // Set canvas size to match window
+        this.resizeCanvas();
+        window.addEventListener('resize', () => this.resizeCanvas());
+        window.addEventListener('orientationchange', () => this.resizeCanvas());
         
         // Game States
         this.gameState = 'start'; // start, playing, paused, gameOver
@@ -14,18 +19,24 @@ class SpaceRunner {
         // Player
         this.player = {
             x: this.canvas.width / 2 - 15,
-            y: this.canvas.height - 60,
+            y: this.canvas.height - 80,
             width: 30,
             height: 40,
-            speed: 5,
+            speed: 6,
             active: true
         };
+        
+        // Weapons and projectiles
+        this.bullets = [];
+        this.fireRate = 8; // frames between shots
+        this.fireCounter = 0;
         
         // Obstacles and collectibles
         this.obstacles = [];
         this.collectibles = [];
         this.powerUps = [];
         this.particles = [];
+        this.explosions = [];
         
         // Game mechanics
         this.spawnRate = 0.02;
@@ -41,35 +52,56 @@ class SpaceRunner {
         this.keys = {};
         this.touchControls = {
             left: false,
-            right: false
+            right: false,
+            shoot: false
         };
         
         this.setupEventListeners();
         this.draw();
     }
     
+    resizeCanvas() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+    }
+    
     setupEventListeners() {
         // Keyboard controls
         document.addEventListener('keydown', (e) => {
             this.keys[e.key] = true;
+            if (e.key === ' ') {
+                e.preventDefault();
+                this.touchControls.shoot = true;
+            }
             if (e.key === 'p' || e.key === 'P') this.togglePause();
         });
         
         document.addEventListener('keyup', (e) => {
             this.keys[e.key] = false;
+            if (e.key === ' ') {
+                this.touchControls.shoot = false;
+            }
         });
         
-        // Touch controls
+        // Touch controls for movement
         this.canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
             const touch = e.touches[0];
             const rect = this.canvas.getBoundingClientRect();
             const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
             
-            if (x < this.canvas.width / 2) {
+            // Left side for moving left
+            if (x < this.canvas.width / 3) {
                 this.touchControls.left = true;
-            } else {
+            }
+            // Right side for moving right
+            else if (x > (this.canvas.width * 2) / 3) {
                 this.touchControls.right = true;
+            }
+            // Center for shooting
+            else {
+                this.touchControls.shoot = true;
             }
         });
         
@@ -77,6 +109,11 @@ class SpaceRunner {
             e.preventDefault();
             this.touchControls.left = false;
             this.touchControls.right = false;
+            this.touchControls.shoot = false;
+        });
+        
+        this.canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
         });
         
         // Button controls
@@ -84,9 +121,17 @@ class SpaceRunner {
         document.getElementById('restartBtn').addEventListener('click', () => this.startGame());
         document.getElementById('resumeBtn').addEventListener('click', () => this.togglePause());
         document.getElementById('quitBtn').addEventListener('click', () => this.goToMenu());
-        document.getElementById('pauseBtn').addEventListener('click', () => this.togglePause());
         document.getElementById('shareBtn').addEventListener('click', () => this.shareScore());
         
+        // Left button
+        document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.touchControls.left = true;
+        });
+        document.getElementById('leftBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.touchControls.left = false;
+        });
         document.getElementById('leftBtn').addEventListener('mousedown', () => {
             this.touchControls.left = true;
         });
@@ -94,11 +139,36 @@ class SpaceRunner {
             this.touchControls.left = false;
         });
         
+        // Right button
+        document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.touchControls.right = true;
+        });
+        document.getElementById('rightBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.touchControls.right = false;
+        });
         document.getElementById('rightBtn').addEventListener('mousedown', () => {
             this.touchControls.right = true;
         });
         document.getElementById('rightBtn').addEventListener('mouseup', () => {
             this.touchControls.right = false;
+        });
+        
+        // Shoot button
+        document.getElementById('shootBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.touchControls.shoot = true;
+        });
+        document.getElementById('shootBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.touchControls.shoot = false;
+        });
+        document.getElementById('shootBtn').addEventListener('mousedown', () => {
+            this.touchControls.shoot = true;
+        });
+        document.getElementById('shootBtn').addEventListener('mouseup', () => {
+            this.touchControls.shoot = false;
         });
     }
     
@@ -112,6 +182,7 @@ class SpaceRunner {
         this.obstacles = [];
         this.collectibles = [];
         this.powerUps = [];
+        this.bullets = [];
         this.invulnerableTime = 0;
         this.player.active = true;
         this.player.x = this.canvas.width / 2 - 15;
@@ -141,6 +212,7 @@ class SpaceRunner {
         this.obstacles = [];
         this.collectibles = [];
         this.powerUps = [];
+        this.bullets = [];
     }
     
     gameOver() {
@@ -158,7 +230,7 @@ class SpaceRunner {
     }
     
     shareScore() {
-        const text = `🚀 I scored ${this.score} points in Space Runner! Can you beat my score? https://github.com/herickmartuscelo-ai/space-runner-game`;
+        const text = `🚀 I scored ${this.score} points in Space Runner! Shot down asteroids and collected stars! Can you beat my score? https://github.com/herickmartuscelo-ai/space-runner-game`;
         
         if (navigator.share) {
             navigator.share({
@@ -210,6 +282,15 @@ class SpaceRunner {
             this.player.x = this.canvas.width - this.player.width;
         }
         
+        // Handle shooting
+        if (this.touchControls.shoot || this.keys[' ']) {
+            if (this.fireCounter <= 0) {
+                this.shoot();
+                this.fireCounter = this.fireRate;
+            }
+        }
+        this.fireCounter--;
+        
         // Spawn obstacles
         if (Math.random() < this.spawnRate) {
             this.spawnObstacle();
@@ -224,6 +305,30 @@ class SpaceRunner {
         if (Math.random() < this.powerUpRate) {
             this.spawnPowerUp();
         }
+        
+        // Update bullets
+        this.bullets.forEach((bullet, index) => {
+            bullet.y -= bullet.speed;
+            
+            // Check collision with obstacles
+            for (let i = this.obstacles.length - 1; i >= 0; i--) {
+                if (this.isColliding(bullet, this.obstacles[i])) {
+                    this.score += 15; // Points for destroying asteroid
+                    this.createExplosion(this.obstacles[i].x + this.obstacles[i].width / 2, 
+                                       this.obstacles[i].y + this.obstacles[i].height / 2);
+                    this.createParticles(this.obstacles[i].x + this.obstacles[i].width / 2, 
+                                        this.obstacles[i].y + this.obstacles[i].height / 2, '#ff9900');
+                    this.obstacles.splice(i, 1);
+                    this.bullets.splice(index, 1);
+                    return;
+                }
+            }
+            
+            // Remove if off screen
+            if (bullet.y < 0) {
+                this.bullets.splice(index, 1);
+            }
+        });
         
         // Update obstacles
         this.obstacles.forEach((obs, index) => {
@@ -293,6 +398,14 @@ class SpaceRunner {
             }
         });
         
+        // Update explosions
+        this.explosions.forEach((exp, index) => {
+            exp.life--;
+            if (exp.life <= 0) {
+                this.explosions.splice(index, 1);
+            }
+        });
+        
         // Update invulnerability
         this.invulnerableTime--;
         
@@ -303,6 +416,18 @@ class SpaceRunner {
         
         this.draw();
         requestAnimationFrame(() => this.update());
+    }
+    
+    shoot() {
+        this.bullets.push({
+            x: this.player.x + this.player.width / 2 - 2,
+            y: this.player.y,
+            width: 4,
+            height: 12,
+            speed: 8
+        });
+        
+        this.createParticles(this.player.x + this.player.width / 2, this.player.y, '#ffff00');
     }
     
     spawnObstacle() {
@@ -371,12 +496,21 @@ class SpaceRunner {
     }
     
     createExplosion(x, y) {
-        for (let i = 0; i < 10; i++) {
+        this.explosions.push({
+            x: x,
+            y: y,
+            radius: 5,
+            maxRadius: 30,
+            life: 20,
+            maxLife: 20
+        });
+        
+        for (let i = 0; i < 12; i++) {
             this.particles.push({
                 x: x,
                 y: y,
-                vx: (Math.random() - 0.5) * 6,
-                vy: (Math.random() - 0.5) * 6,
+                vx: (Math.random() - 0.5) * 8,
+                vy: (Math.random() - 0.5) * 8,
                 life: 30,
                 color: '#ff6b6b'
             });
@@ -384,12 +518,12 @@ class SpaceRunner {
     }
     
     createParticles(x, y, color) {
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 8; i++) {
             this.particles.push({
                 x: x,
                 y: y,
-                vx: (Math.random() - 0.5) * 4,
-                vy: (Math.random() - 0.5) * 4,
+                vx: (Math.random() - 0.5) * 5,
+                vy: (Math.random() - 0.5) * 5,
                 life: 20,
                 color: color
             });
@@ -403,6 +537,11 @@ class SpaceRunner {
         
         // Draw starfield background
         this.drawStarfield();
+        
+        // Draw explosions
+        this.explosions.forEach(exp => {
+            this.drawExplosion(exp);
+        });
         
         // Draw obstacles
         this.obstacles.forEach(obs => {
@@ -418,6 +557,16 @@ class SpaceRunner {
         this.powerUps.forEach(pup => {
             this.drawPowerUp(pup);
         });
+        
+        // Draw bullets
+        this.bullets.forEach(bullet => {
+            this.ctx.fillStyle = '#ffff00';
+            this.ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+            // Bullet glow
+            this.ctx.shadowColor = '#ffff00';
+            this.ctx.shadowBlur = 8;
+        });
+        this.ctx.shadowBlur = 0;
         
         // Draw particles
         this.particles.forEach(p => {
@@ -444,6 +593,20 @@ class SpaceRunner {
             const y = (i * 91 + this.frameCount * 0.5) % this.canvas.height;
             this.ctx.fillRect(x, y, 1, 1);
         }
+    }
+    
+    drawExplosion(exp) {
+        const progress = 1 - (exp.life / exp.maxLife);
+        const currentRadius = exp.radius + (exp.maxRadius - exp.radius) * progress;
+        
+        this.ctx.fillStyle = `rgba(255, 107, 107, ${1 - progress})`;
+        this.ctx.beginPath();
+        this.ctx.arc(exp.x, exp.y, currentRadius, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        this.ctx.strokeStyle = `rgba(255, 200, 0, ${1 - progress})`;
+        this.ctx.lineWidth = 2;
+        this.ctx.stroke();
     }
     
     drawPlayer() {
