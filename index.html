@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Runner - Endless Runner Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="gameContainer">
+            <canvas id="gameCanvas" width="400" height="600"></canvas>
+            
+            <!-- Game UI Overlay -->
+            <div id="ui" class="ui-overlay">
+                <div class="score-board">
+                    <div class="score-item">
+                        <span class="label">Score:</span>
+                        <span id="score" class="value">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="label">Level:</span>
+                        <span id="level" class="value">1</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="label">Lives:</span>
+                        <span id="lives" class="value">3</span>
+                    </div>
+                </div>
+
+                <!-- Start Screen -->
+                <div id="startScreen" class="screen active">
+                    <div class="screen-content">
+                        <h1>🚀 SPACE RUNNER</h1>
+                        <p>Navigate through the asteroid field!</p>
+                        <button id="startBtn" class="btn btn-primary">START GAME</button>
+                        <div class="controls-info">
+                            <p><strong>Controls:</strong></p>
+                            <p>📱 Tap LEFT or RIGHT to move</p>
+                            <p>⌨️ Use Arrow Keys or A/D keys</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Over Screen -->
+                <div id="gameOverScreen" class="screen">
+                    <div class="screen-content">
+                        <h1>GAME OVER</h1>
+                        <div class="final-stats">
+                            <p>Final Score: <span id="finalScore">0</span></p>
+                            <p>Level Reached: <span id="finalLevel">1</span></p>
+                        </div>
+                        <button id="restartBtn" class="btn btn-primary">PLAY AGAIN</button>
+                        <button id="shareBtn" class="btn btn-secondary">SHARE SCORE</button>
+                    </div>
+                </div>
+
+                <!-- Pause Screen -->
+                <div id="pauseScreen" class="screen">
+                    <div class="screen-content">
+                        <h1>PAUSED</h1>
+                        <button id="resumeBtn" class="btn btn-primary">RESUME</button>
+                        <button id="quitBtn" class="btn btn-secondary">QUIT TO MENU</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Touch Controls for Mobile -->
+            <div class="mobile-controls">
+                <button id="leftBtn" class="control-btn left-btn">◄</button>
+                <button id="rightBtn" class="control-btn right-btn">►</button>
+                <button id="pauseBtn" class="control-btn pause-btn">⏸</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
