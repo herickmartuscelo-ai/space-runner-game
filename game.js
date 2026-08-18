@@ -22,13 +22,13 @@ class SpaceRunner {
             y: this.canvas.height - 80,
             width: 30,
             height: 40,
-            speed: 6,
+            speed: 10,
             active: true
         };
         
         // Weapons and projectiles
         this.bullets = [];
-        this.fireRate = 8; // frames between shots
+        this.fireRate = 4; // frames between shots
         this.fireCounter = 0;
         
         // Obstacles and collectibles
