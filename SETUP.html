@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Runner - Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        section h2 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        section h3 {
+            color: #764ba2;
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px 10px 10px 0;
+            transition: transform 0.2s;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #f5f5f5;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            border-top: 1px solid #ddd;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Space Runner</h1>
+            <p>Setup & Distribution Guide for Your Friends</p>
+        </header>
+
+        <div class="content">
+            <!-- Quick Start Section -->
+            <section>
+                <h2>🚀 Quick Start (5 Minutes)</h2>
+                
+                <h3>1. Open the Game</h3>
+                <ol>
+                    <li>Download or clone the repository</li>
+                    <li>Double-click <code>index.html</code> to open in your browser</li>
+                    <li>Click "START GAME" and enjoy!</li>
+                </ol>
+
+                <div class="success-box">
+                    <strong>✅ That's it!</strong> No installation or setup required. Just open and play!
+                </div>
+            </section>
+
+            <!-- Distribution Options -->
+            <section>
+                <h2>📤 How to Share with Friends</h2>
+
+                <h3>Option 1: GitHub Pages (Recommended) ⭐</h3>
+                <p>Host the game for free on GitHub and share a link!</p>
+                <ol>
+                    <li>Go to your repository on GitHub.com</li>
+                    <li>Click <strong>Settings</strong> (top menu)</li>
+                    <li>Scroll to <strong>GitHub Pages</strong> section</li>
+                    <li>Select <strong>Deploy from a branch</strong></li>
+                    <li>Choose <strong>main</strong> branch and <strong>root</strong> folder</li>
+                    <li>Click <strong>Save</strong></li>
+                    <li>Wait 1-2 minutes, then your game will be live at: <br>
+                        <code>https://yourusername.github.io/space-runner-game</code>
+                    </li>
+                </ol>
+
+                <div class="info-box">
+                    <strong>💡 Pro Tip:</strong> Share this link with friends - they can play instantly without downloading anything!
+                </div>
+
+                <h3>Option 2: Direct File Sharing</h3>
+                <ol>
+                    <li>Download the entire folder as ZIP</li>
+                    <li>Send via email, WhatsApp, or file sharing service</li>
+                    <li>Friends extract and open <code>index.html</code></li>
+                </ol>
+
+                <h3>Option 3: Cloud Storage</h3>
+                <ol>
+                    <li>Upload files to Google Drive, Dropbox, or OneDrive</li>
+                    <li>Make sure <code>index.html</code> is publicly accessible</li>
+                    <li>Share the link with friends</li>
+                </ol>
+            </section>
+
+            <!-- Features Showcase -->
+            <section>
+                <h2>🎮 Game Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🕹️ Easy Controls</h4>
+                        <p>Arrow keys, A/D keys, or touch controls - play on any device!</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📈 Progressive Difficulty</h4>
+                        <p>Game gets harder over time. How far can you go?</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>💾 High Score Tracking</h4>
+                        <p>Your best score is saved automatically. Compete with friends!</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⭐ Power-ups</h4>
+                        <p>Shields, speed boosts, and magnets for extra points!</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📱 Mobile Friendly</h4>
+                        <p>Works perfectly on phones, tablets, and desktops.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🌐 No Installation</h4>
+                        <p>Just open in browser - no apps or downloads needed!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game Controls -->
+            <section>
+                <h2>🎮 Game Controls</h2>
+                <table>
+                    <tr>
+                        <th>Platform</th>
+                        <th>Move Left</th>
+                        <th>Move Right</th>
+                        <th>Pause</th>
+                    </tr>
+                    <tr>
+                        <td>🖥️ Desktop</td>
+                        <td>← Arrow / A key</td>
+                        <td>→ Arrow / D key</td>
+                        <td>P key</td>
+                    </tr>
+                    <tr>
+                        <td>📱 Mobile</td>
+                        <td>Tap left side</td>
+                        <td>Tap right side</td>
+                        <td>⏸ Button</td>
+                    </tr>
+                    <tr>
+                        <td>📱 Buttons</td>
+                        <td>◄ Button</td>
+                        <td>► Button</td>
+                        <td>⏸ Button</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Customization Guide -->
+            <section>
+                <h2>🎨 Customization (Advanced)</h2>
+
+                <h3>Change Game Speed</h3>
+                <p>Edit <code>game.js</code> and find:</p>
+                <div class="code-block">this.gameSpeed = 3;  // Increase for faster game</div>
+
+                <h3>Change Colors</h3>
+                <p>Edit <code>style.css</code> and modify these colors:</p>
+                <div class="code-block">
+#00d4ff   /* Cyan - Main color */
+#00ff00   /* Green - Player ship */
+#ff6b6b   /* Red - Asteroids */
+#ffff00   /* Yellow - Collectibles */
+                </div>
+
+                <h3>Adjust Game Difficulty</h3>
+                <p>In <code>game.js</code>, modify spawn rates:</p>
+                <div class="code-block">
+this.spawnRate = 0.02;         // Asteroid spawn rate
+this.collectibleRate = 0.01;   // Star spawn rate
+this.powerUpRate = 0.003;      // Power-up spawn rate
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Warning:</strong> Only edit if you know JavaScript. Backup files before making changes!
+                </div>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section>
+                <h2>❓ Troubleshooting</h2>
+
+                <h3>Game won't open</h3>
+                <ul>
+                    <li>Make sure you have a modern web browser (Chrome, Firefox, Safari, Edge)</li>
+                    <li>Try opening in a different browser</li>
+                    <li>Check that all files (index.html, style.css, game.js) are in the same folder</li>
+                </ul>
+
+                <h3>Controls not working</h3>
+                <ul>
+                    <li>Make sure the game canvas is focused (click on it)</li>
+                    <li>Try using on-screen buttons instead</li>
+                    <li>Refresh the page and try again</li>
+                </ul>
+
+                <h3>High score not saving</h3>
+                <ul>
+                    <li>Check if your browser allows local storage</li>
+                    <li>Try clearing browser cache and refreshing</li>
+                    <li>Make sure you're not in private/incognito mode</li>
+                </ul>
+
+                <h3>Game runs slowly</h3>
+                <ul>
+                    <li>Close other browser tabs</li>
+                    <li>Try a different browser or device</li>
+                    <li>Update your browser to the latest version</li>
+                </ul>
+            </section>
+
+            <!-- Sharing Tips -->
+            <section>
+                <h2>💬 Tips for Sharing with Friends</h2>
+
+                <h3>What to Send</h3>
+                <p>When sharing with friends, include:</p>
+                <ul>
+                    <li>✅ The game link (GitHub Pages or download link)</li>
+                    <li>✅ Brief description: "Fun space-themed endless runner game!"</li>
+                    <li>✅ Controls info: "Use arrow keys or tap to move"</li>
+                    <li>✅ Challenge: "Try to beat my high score! 🚀"</li>
+                </ul>
+
+                <h3>Sample Share Message</h3>
+                <div class="info-box">
+                    🚀 <strong>Play Space Runner!</strong><br><br>
+                    I created a fun endless runner game. Navigate through asteroids, collect stars, and compete for high scores! No installation needed - just open and play.<br><br>
+                    👉 <a href="https://yourusername.github.io/space-runner-game" style="color: #667eea;">Play Now</a><br><br>
+                    Can you beat my score? 🎮
+                </div>
+
+                <h3>Track Scores</h3>
+                <ul>
+                    <li>Ask friends to share their high scores</li>
+                    <li>Create a friendly competition</li>
+                    <li>Share improvements and tips</li>
+                </ul>
+            </section>
+
+            <!-- Browser Compatibility -->
+            <section>
+                <h2>🌐 Browser Support</h2>
+                <table>
+                    <tr>
+                        <th>Browser</th>
+                        <th>Support</th>
+                        <th>Version</th>
+                    </tr>
+                    <tr>
+                        <td>Chrome</td>
+                        <td>✅ Full Support</td>
+                        <td>Latest</td>
+                    </tr>
+                    <tr>
+                        <td>Firefox</td>
+                        <td>✅ Full Support</td>
+                        <td>Latest</td>
+                    </tr>
+                    <tr>
+                        <td>Safari</td>
+                        <td>✅ Full Support</td>
+                        <td>Latest</td>
+                    </tr>
+                    <tr>
+                        <td>Edge</td>
+                        <td>✅ Full Support</td>
+                        <td>Latest</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile Browsers</td>
+                        <td>✅ Full Support</td>
+                        <td>Any modern version</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Final Tips -->
+            <section>
+                <h2>🎯 Final Tips</h2>
+                <ol>
+                    <li><strong>Stay centered:</strong> Move smoothly through the middle for better dodging</li>
+                    <li><strong>Collect everything:</strong> Stars and power-ups boost your score</li>
+                    <li><strong>Plan ahead:</strong> Look for gaps in the asteroid field</li>
+                    <li><strong>Use invulnerability:</strong> After hitting an asteroid, use the 2-second shield wisely</li>
+                    <li><strong>Practice:</strong> The first few levels are for learning controls</li>
+                    <li><strong>Share your score:</strong> Challenge friends after each game!</li>
+                </ol>
+            </section>
+
+            <!-- Call to Action -->
+            <section style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px; margin: 0 -40px -40px -40px;">
+                <h2 style="color: white; border: none; margin-bottom: 15px;">Ready to Share? 🚀</h2>
+                <p style="color: rgba(255,255,255,0.9); margin-bottom: 20px;">
+                    Your Space Runner game is ready to play and share with friends!
+                </p>
+                <a href="index.html" class="button">Play the Game</a>
+                <a href="https://github.com/herickmartuscelo-ai/space-runner-game" class="button">View on GitHub</a>
+            </section>
+        </div>
+
+        <footer>
+            <p>🎮 Space Runner | Made with ❤️ for fun | Share with your friends! 🚀</p>
+            <p style="margin-top: 10px; font-size: 12px;">All files • Quick setup • No installation • Free to share</p>
+        </footer>
+    </div>
+</body>
+</html>
