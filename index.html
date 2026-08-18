@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Runner - Endless Runner Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>Space Runner - Mobile Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div id="gameContainer">
-            <canvas id="gameCanvas" width="400" height="600"></canvas>
+            <canvas id="gameCanvas"></canvas>
             
             <!-- Game UI Overlay -->
             <div id="ui" class="ui-overlay">
@@ -32,12 +32,12 @@
                 <div id="startScreen" class="screen active">
                     <div class="screen-content">
                         <h1>🚀 SPACE RUNNER</h1>
-                        <p>Navigate through the asteroid field!</p>
+                        <p>Shoot asteroids & collect stars!</p>
                         <button id="startBtn" class="btn btn-primary">START GAME</button>
                         <div class="controls-info">
-                            <p><strong>Controls:</strong></p>
-                            <p>📱 Tap LEFT or RIGHT to move</p>
-                            <p>⌨️ Use Arrow Keys or A/D keys</p>
+                            <p><strong>📱 Mobile Controls:</strong></p>
+                            <p>◄ Move LEFT | ► Move RIGHT</p>
+                            <p>💥 TAP CENTER to SHOOT</p>
                         </div>
                     </div>
                 </div>
@@ -65,11 +65,11 @@
                 </div>
             </div>
 
-            <!-- Touch Controls for Mobile -->
+            <!-- Mobile Controls - Optimized Layout -->
             <div class="mobile-controls">
-                <button id="leftBtn" class="control-btn left-btn">◄</button>
-                <button id="rightBtn" class="control-btn right-btn">►</button>
-                <button id="pauseBtn" class="control-btn pause-btn">⏸</button>
+                <button id="leftBtn" class="control-btn left-btn">◄ LEFT</button>
+                <button id="shootBtn" class="control-btn shoot-btn">💥 SHOOT</button>
+                <button id="rightBtn" class="control-btn right-btn">RIGHT ►</button>
             </div>
         </div>
     </div>
