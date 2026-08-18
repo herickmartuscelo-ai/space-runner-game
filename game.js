@@ -22,13 +22,13 @@ class SpaceRunner {
             y: this.canvas.height - 80,
             width: 30,
             height: 40,
-            speed: 10,
+            speed: 6,
             active: true
         };
         
         // Weapons and projectiles
         this.bullets = [];
-        this.fireRate = 4; // frames between shots
+        this.fireRate = 8; // frames between shots
         this.fireCounter = 0;
         
         // Obstacles and collectibles
@@ -116,60 +116,92 @@ class SpaceRunner {
             e.preventDefault();
         });
         
-        // Button controls
-        document.getElementById('startBtn').addEventListener('click', () => this.startGame());
-        document.getElementById('restartBtn').addEventListener('click', () => this.startGame());
-        document.getElementById('resumeBtn').addEventListener('click', () => this.togglePause());
-        document.getElementById('quitBtn').addEventListener('click', () => this.goToMenu());
-        document.getElementById('shareBtn').addEventListener('click', () => this.shareScore());
+        // Button controls - START BUTTON
+        const startBtn = document.getElementById('startBtn');
+        if (startBtn) {
+            startBtn.addEventListener('click', () => this.startGame());
+        }
         
-        // Left button
-        document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.touchControls.left = true;
-        });
-        document.getElementById('leftBtn').addEventListener('touchend', (e) => {
-            e.preventDefault();
-            this.touchControls.left = false;
-        });
-        document.getElementById('leftBtn').addEventListener('mousedown', () => {
-            this.touchControls.left = true;
-        });
-        document.getElementById('leftBtn').addEventListener('mouseup', () => {
-            this.touchControls.left = false;
-        });
+        // RESTART BUTTON
+        const restartBtn = document.getElementById('restartBtn');
+        if (restartBtn) {
+            restartBtn.addEventListener('click', () => this.startGame());
+        }
         
-        // Right button
-        document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.touchControls.right = true;
-        });
-        document.getElementById('rightBtn').addEventListener('touchend', (e) => {
-            e.preventDefault();
-            this.touchControls.right = false;
-        });
-        document.getElementById('rightBtn').addEventListener('mousedown', () => {
-            this.touchControls.right = true;
-        });
-        document.getElementById('rightBtn').addEventListener('mouseup', () => {
-            this.touchControls.right = false;
-        });
+        // PAUSE RESUME BUTTON
+        const pauseResumeBtn = document.getElementById('pauseResumeBtn');
+        if (pauseResumeBtn) {
+            pauseResumeBtn.addEventListener('click', () => this.togglePause());
+        }
         
-        // Shoot button
-        document.getElementById('shootBtn').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.touchControls.shoot = true;
-        });
-        document.getElementById('shootBtn').addEventListener('touchend', (e) => {
-            e.preventDefault();
-            this.touchControls.shoot = false;
-        });
-        document.getElementById('shootBtn').addEventListener('mousedown', () => {
-            this.touchControls.shoot = true;
-        });
-        document.getElementById('shootBtn').addEventListener('mouseup', () => {
-            this.touchControls.shoot = false;
-        });
+        // PAUSE QUIT BUTTON
+        const pauseQuitBtn = document.getElementById('pauseQuitBtn');
+        if (pauseQuitBtn) {
+            pauseQuitBtn.addEventListener('click', () => this.goToMenu());
+        }
+        
+        // SHARE BUTTON
+        const shareBtn = document.getElementById('shareBtn');
+        if (shareBtn) {
+            shareBtn.addEventListener('click', () => this.shareScore());
+        }
+        
+        // LEFT BUTTON
+        const leftBtn = document.getElementById('leftBtn');
+        if (leftBtn) {
+            leftBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                this.touchControls.left = true;
+            });
+            leftBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                this.touchControls.left = false;
+            });
+            leftBtn.addEventListener('mousedown', () => {
+                this.touchControls.left = true;
+            });
+            leftBtn.addEventListener('mouseup', () => {
+                this.touchControls.left = false;
+            });
+        }
+        
+        // RIGHT BUTTON
+        const rightBtn = document.getElementById('rightBtn');
+        if (rightBtn) {
+            rightBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                this.touchControls.right = true;
+            });
+            rightBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                this.touchControls.right = false;
+            });
+            rightBtn.addEventListener('mousedown', () => {
+                this.touchControls.right = true;
+            });
+            rightBtn.addEventListener('mouseup', () => {
+                this.touchControls.right = false;
+            });
+        }
+        
+        // SHOOT BUTTON
+        const shootBtn = document.getElementById('shootBtn');
+        if (shootBtn) {
+            shootBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                this.touchControls.shoot = true;
+            });
+            shootBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                this.touchControls.shoot = false;
+            });
+            shootBtn.addEventListener('mousedown', () => {
+                this.touchControls.shoot = true;
+            });
+            shootBtn.addEventListener('mouseup', () => {
+                this.touchControls.shoot = false;
+            });
+        }
     }
     
     startGame() {
@@ -244,10 +276,12 @@ class SpaceRunner {
     
     setScreenVisibility(screenId, visible) {
         const screen = document.getElementById(screenId);
-        if (visible) {
-            screen.classList.add('active');
-        } else {
-            screen.classList.remove('active');
+        if (screen) {
+            if (visible) {
+                screen.classList.add('active');
+            } else {
+                screen.classList.remove('active');
+            }
         }
     }
     
